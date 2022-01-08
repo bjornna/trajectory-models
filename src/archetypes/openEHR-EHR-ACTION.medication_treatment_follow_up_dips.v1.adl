@@ -1,0 +1,199 @@
+archetype (adl_version=1.4; uid=54595b00-a7fa-47f2-a906-b6d691afb78f)
+	openEHR-EHR-ACTION.medication_treatment_follow_up_dips.v1
+
+concept
+	[at0000]	-- Oppfølging av legemiddelbehandling
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2021-12-10">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Benyttes for å følge opp perioder av medikamentell behandling av en pasient. Første brukertilfelle var oppfølging av pasient med Cystisk fibrose som går gjennom behandlingsperioder med flere medikamenter. Denne arketype er utviklet for å gi en status på behandlingsperiodene. ">
+			use = <"Benyttes for å følge opp status på kombinert behandling med legemidler. ">
+			keywords = <"legemiddel", ...>
+			misuse = <"Benyttes ikke for å dokumentere administrasjon av et spesifikt legemiddel. ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_namespace"] = <"org.openehr">
+		["original_namespace"] = <"org.openehr">
+		["build_uid"] = <"68d6577f-6dd3-4c60-8764-9b3cad6113c3">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["MD5-CAM-1.0.1"] = <"D7EDE470572D6E502BA4171D3514B61A">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Oppfølging av legemiddelbehandling
+		ism_transition matches {
+			ISM_TRANSITION[at0002] matches {	-- Forordnet
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::524]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0002]}		-- Forordnet
+					}
+				}
+			}
+			ISM_TRANSITION[at0003] matches {	-- Planlagt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Planlagt
+					}
+				}
+			}
+			ISM_TRANSITION[at0004] matches {	-- Behandling startet
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0004]}		-- Behandling startet
+					}
+				}
+			}
+			ISM_TRANSITION[at0005] matches {	-- Evaluert effekt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0005]}		-- Evaluert effekt
+					}
+				}
+			}
+			ISM_TRANSITION[at0006] matches {	-- Fullført
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0006]}		-- Fullført
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Item tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Behandlingstype
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Status
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0010, 	-- Forordnet
+									at0011, 	-- Forberedt
+									at0012, 	-- Første dose gitt
+									at0013, 	-- Evaluert effekt
+									at0014]	-- Fullført
+								}
+							}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Oppfølging av legemiddelbehandling">
+					description = <"Utviklet for å følge opp samlet status og tiltak knyttet til en samlet medikamentell behandling av en pasient. ">
+				>
+				["at0001"] = <
+					text = <"Item tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Forordnet">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Planlagt">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Behandling startet">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Evaluert effekt">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Fullført">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Behandlingstype">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Status">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Kommentar">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Forordnet">
+					description = <"Behandlingen er forordnet ">
+				>
+				["at0011"] = <
+					text = <"Forberedt">
+					description = <"Behandlingen er forberedt - dvs. bestilt medikamenter og klargjort for oppstart av behandling">
+				>
+				["at0012"] = <
+					text = <"Første dose gitt">
+					description = <"Første dose i en behandlingsperiode er gitt pasient ">
+				>
+				["at0013"] = <
+					text = <"Evaluert effekt">
+					description = <"Effekt av behandlingsperioden er samlet inn og registrert">
+				>
+				["at0014"] = <
+					text = <"Fullført">
+					description = <"Behandling er fullført og avsluttet. Behandlingsperioden lukkes. ">
+				>
+			>
+		>
+	>
