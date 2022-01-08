@@ -31,6 +31,7 @@ The initial models for the concept were developed to standardised “package pro
 |COMPOSITION.trajectory.v1	|Used for compositions which contains information about the initializing/set-up or follow up of trajectories. |
 |ADMIN_ENTRY.trajectory_manager.v1	|The healthcare provider responsible for the given trajectory|
 |EVALUATION.trajectory_plan.v1	|Defines the overall plan for measurement/milestone events in the patient trajectory|
+|openEHR-EHR-ACTION.medication_treatment_follow_up_dips.v1.adl|Used to follow up the state and progress of an order-set within medication|
 
 
 ## Resources
