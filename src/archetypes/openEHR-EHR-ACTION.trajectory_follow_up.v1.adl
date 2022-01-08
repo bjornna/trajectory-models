@@ -1,0 +1,348 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.trajectory_follow_up.v1
+
+concept
+	[at0000]	-- Trajectory follow up
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Bjørn Næss">
+				["email"] = <"bna@dips.no">
+				["organisation"] = <"DIPS ASA ">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2015-06-20">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Strukturerer hendelsesregistrering i et pasientforløp.">
+			use = <"Benyttes for å registrere hendelser i et gitt pasientforløp">
+			keywords = <"forløp", "behandlingslinje", "behandlingsplan", "protokoll">
+			misuse = <"">
+			copyright = <"">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Defines a way to follow up events, turning points and milestones in a patient trajectory. ">
+			use = <"Given an ongoing patient trajectory this model is designed to be able to carry data about specific events, turning points or milestones. 
+
+Using the Norwegian standardised cancer process as an example: 
+
+* First encounter - defines the first contact the patient has with the healthcare service for the given problem. 
+* Clinical decision - defines the milestone where the decision about the treatment was made 
+* Treatment start - defines the turning point when treatment was started 
+* Trajectory end - defines when all activities expected to be done witihin the trajectory is completed. 
+
+">
+			keywords = <"trajectory", "pathway", "care plan">
+			misuse = <"It is not designed for specific diagnostic or treatment related procedures like medication and procedures. Use the domain specific archetypes for such use-cases. ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"1ECB70AAB38BE647A7D97672E64E3188">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Trajectory follow up
+		ism_transition matches {
+			ISM_TRANSITION[at0009] matches {	-- Trajectory initiated
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0009]}		-- Trajectory initiated
+					}
+				}
+			}
+			ISM_TRANSITION[at0017] matches {	-- Postpone
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::527]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0017]}		-- Postpone
+					}
+				}
+			}
+			ISM_TRANSITION[at0006] matches {	-- Cancel 
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0006]}		-- Cancel 
+					}
+				}
+			}
+			ISM_TRANSITION[at0008] matches {	-- Scheduled first appointment
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::529]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0008]}		-- Scheduled first appointment
+					}
+				}
+			}
+			ISM_TRANSITION[at0003] matches {	-- Active event
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Active event
+					}
+				}
+			}
+			ISM_TRANSITION[at0016] matches {	-- Suspend
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::530]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0016]}		-- Suspend
+					}
+				}
+			}
+			ISM_TRANSITION[at0005] matches {	-- Abort
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::531]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0005]}		-- Abort
+					}
+				}
+			}
+			ISM_TRANSITION[at0007] matches {	-- Complete
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0007]}		-- Complete
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Event
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Description
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- External event
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {	-- Details
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0011] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Responsible
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Responsible details
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Trajectory follow up">
+					description = <"Register events in a trajectory to follow up the pathway. ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Event">
+					description = <"Defines a specific event, turning point or milestone in the trajectory. It is recommended to use some terminology to define the events. ">
+				>
+				["at0003"] = <
+					text = <"Active event">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Abort">
+					description = <"Abort the ongoing trajectory">
+				>
+				["at0006"] = <
+					text = <"Cancel ">
+					description = <"Cancel the planned trajectory">
+				>
+				["at0007"] = <
+					text = <"Complete">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Scheduled first appointment">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Trajectory initiated">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Description">
+					description = <"An optional narrative desciption of the event. ">
+				>
+				["at0011"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0012"] = <
+					text = <"Responsible">
+					description = <"The local ID assigned to the responsible clinician for this action. ">
+				>
+				["at0013"] = <
+					text = <"Responsible details">
+					description = <"Details about the healthcare provider or organisation executing this action. ">
+				>
+				["at0014"] = <
+					text = <"External event">
+					description = <"Mark if this event happened outside of the responsible healthcare provider. ">
+				>
+				["at0016"] = <
+					text = <"Suspend">
+					description = <"Trajectory suspended - use description to tell the reason for suspension">
+				>
+				["at0017"] = <
+					text = <"Postpone">
+					description = <"The trajectory was postponed. Use description for reason to postpone">
+				>
+				["at0018"] = <
+					text = <"Details">
+					description = <"An extension intended to be filled with specific definitions of the specific trajectory. ">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Oppfølging av forløp">
+					description = <"Registrer hendelser i et pasienforløp">
+				>
+				["at0001"] = <
+					text = <"Tre">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"*Event(en)">
+					description = <"*Defines a specific event, turning point or milestone in the trajectory. It is recommended to use some terminology to define the events. (en)">
+				>
+				["at0003"] = <
+					text = <"Aktiv hendelse">
+					description = <"Benyttes for å registrere alle aktive hendelser i et forløp. Benytte hendelse med kode og beskrivelse for å spesifisere nærmere om hendelsen.">
+				>
+				["at0005"] = <
+					text = <"Avbryt">
+					description = <"Forløpet ble avbrutt (og ikke ferdigsstilt)">
+				>
+				["at0006"] = <
+					text = <"Kanseller">
+					description = <"Det initierte forløpet ble aldri igangsatt. Benytt hendelse og beskrivelse for å angi årsak.">
+				>
+				["at0007"] = <
+					text = <"Ferdig">
+					description = <"Dokumenterer at forløpet er ferdig. Alle handlinger i forløpet er utført og det forventes ikke nye hendelser. ">
+				>
+				["at0008"] = <
+					text = <"Sett opp første fremmøte">
+					description = <"Benyttes for å angi tidsfastsettelse av første fremmøte i forløpet.">
+				>
+				["at0009"] = <
+					text = <"Initier forløp">
+					description = <"Forløpet ble initiert (igangsatt), men er ikke i en aktiv fase.">
+				>
+				["at0010"] = <
+					text = <"*Description(en)">
+					description = <"*An optional narrative desciption of the event. (en)">
+				>
+				["at0011"] = <
+					text = <"Tre">
+					description = <"@ internal @">
+				>
+				["at0012"] = <
+					text = <"Ansvarlig">
+					description = <"Lokal identifikator av den som var ansvarlig for denne hendelsen. ">
+				>
+				["at0013"] = <
+					text = <"Detaljer om ansvarlig ">
+					description = <"Detaljer om helsetjenestetilbyder eller organisasjon som utførte hendelsen. ">
+				>
+				["at0014"] = <
+					text = <"Ekstern hendelse?">
+					description = <"Markerer at hendelse skjedde utenfor aktuell helsetilbyder.">
+				>
+				["at0016"] = <
+					text = <"Sett på vent">
+					description = <"Forløpet settes på vent. Benytt hendelse og beskrivelse for angi årsak. ">
+				>
+				["at0017"] = <
+					text = <"Utsett">
+					description = <"Forløpet ble utsatt. Bruk beskrivelse for å angi hvorfor. ">
+				>
+				["at0018"] = <
+					text = <"*Details(en)">
+					description = <"*An extension intended to be filled with specific definitions of the specific trajectory. (en)">
+				>
+			>
+		>
+	>

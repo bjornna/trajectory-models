@@ -1,0 +1,74 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-COMPOSITION.trajectory_summary.v0
+
+concept
+	[at0000]	-- Trajectory summary
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Bjørn Næss">
+				["email"] = <"bna@dips.no">
+				["organisation"] = <"DIPS AS">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2016-03-14">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Summarizes information within a process. The course can be a patient trajectory, a referral period or other process related areas of the patient's electronical health record.">
+			use = <"Used to record a persistent summary of a given patient trajectoy. ">
+			misuse = <"Not used as a summary for care plan or other specific clinical processes.">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Summerer opp informasjon innenfor et forløp. Forløpet kan være et pasientforløp, en henvisningsperiode eller andre avgrensede områder av pasientens journal.">
+			use = <"Benyttes som et fast sammendrag av relevant informasjon om det aktuelle pasientforløpet.">
+			misuse = <"Benyttes ikke som sammendrag for behandlingsplan eller andre spesfikke kliniske prosesser. ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"26F36399B837815EF16DDFB721219D5E">
+	>
+
+definition
+	COMPOSITION[at0000] matches {	-- Trajectory summary
+		category matches {
+			DV_CODED_TEXT matches {
+				defining_code matches {[openehr::431]}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Forløpssammendrag">
+					description = <"Summerer opp informasjon innenfor et forløp. Forløpet kan være et pasientforløp, en henvisningsperiode eller andre avgrensede områder av pasientens journa.">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Trajectory summary">
+					description = <"Summarizes information within a process. The course can be a patient trajectory, a referral period or other process related areas of the patient's electronical health record.">
+				>
+			>
+		>
+	>

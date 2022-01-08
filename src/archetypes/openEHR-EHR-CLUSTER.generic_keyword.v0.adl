@@ -1,0 +1,108 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.generic_keyword.v0
+
+concept
+	[at0000]	-- Generic keyword
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en-gb"] = <
+			language = <[ISO_639-1::en-gb]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2021-11-19">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+		["en-gb"] = <
+			language = <[ISO_639-1::en-gb]>
+			purpose = <"A generic keyword container intended for flexibel use within different use-cases. ">
+			use = <"Used to carry repeatable keywords in a specific clinical setting or use-case. ">
+			misuse = <"Should not be used to carry specifi clinical information which otherwise should be manged by specific archetypes. ">
+			copyright = <"*(nb)">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"A9DDF4F896FC8B33E4AC89023A74571E">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Generic keyword
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Keyword
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Responsible
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Last update
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Generic keyword">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0002"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0003"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+		["en-gb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Generic keyword">
+					description = <"A generic keyword container ">
+				>
+				["at0001"] = <
+					text = <"Keyword">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"Responsible">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Last update">
+					description = <"*">
+				>
+			>
+		>
+	>

@@ -1,0 +1,233 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.trajectory_plan.v1
+
+concept
+	[at0000]	-- Trajectory plan
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Bjørn Næss">
+				["email"] = <"bna@dips.no">
+				["organisation"] = <"DIPS AS">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Astrid Askeland">
+		["email"] = <"ask@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-10-09">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Benyttes for å registrere tidspunkt for planlagte hendelser i et pakkeforløp.">
+			use = <"Utviklet for registrering av tidspunkt for planlagte hendelser i et pakkeforløp.">
+			misuse = <"">
+			copyright = <"">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Used to register the time of planned events in a patient trajectory.">
+			use = <"Used to register the time of planned events in a package process. The intention for this archetypes is to define the overall events driving the patient trajectory ahead.">
+			misuse = <"Is not intended to be used for careplan or other detailed clinical activities.">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Astrid Askeland, DIPS AS<ask@dips.no>">
+		["MD5-CAM-1.0.1"] = <"7F1F3373F0FA831497B34E5F176FEBD4">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Trajectory plan
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..*} matches {	-- Trajectory type
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0003] occurrences matches {0..*} matches {	-- Measuring points
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Event
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Nexts measuring point
+								value matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:??:??}
+									}
+								}
+							}
+							ELEMENT[at0006] occurrences matches {0..1} matches {	-- Next measurement according to the guideline
+								value matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:??:??}
+									}
+								}
+							}
+							ELEMENT[at0008] occurrences matches {0..1} matches {	-- Planned according to guideline
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0009] occurrences matches {0..1} matches {	-- Status
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0010, 	-- Ongoing
+											at0011]	-- On hold
+										}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0012] occurrences matches {0..*} matches {	-- Details about the measuring point
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+					allow_archetype CLUSTER occurrences matches {0..*} matches {
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Last changed
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Forløpsplan">
+					description = <"Angivelse av planlagte hendelser i et pakkeforløp.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Type forløp">
+					description = <"Type pakkeforløp hendelsene skal planlegges for.">
+				>
+				["at0003"] = <
+					text = <"Målepunkter">
+					description = <"Registrering av målepunkter i et pakkeforløp.">
+				>
+				["at0004"] = <
+					text = <"Hendelse">
+					description = <"Type hendelse for målepunktet.">
+				>
+				["at0005"] = <
+					text = <"Neste måling">
+					description = <"Tidspunkt for den planlagte målingen.">
+				>
+				["at0006"] = <
+					text = <"Neste måling iht veileder">
+					description = <"Tidspunkt for den planlagte målingen i henhold til veileder.">
+				>
+				["at0007"] = <
+					text = <"Sist oppdatert">
+					description = <"Tidspunkt hvor siste planlegging ble utført.">
+				>
+				["at0008"] = <
+					text = <"Planlagt iht veileder">
+					description = <"Angir om man planla tidspunkt i henhold til veileder.">
+				>
+				["at0009"] = <
+					text = <"Status">
+					description = <"Angir om man har en pågående måling eller om den er satt på vent inntil eventuell replanlegging.">
+				>
+				["at0010"] = <
+					text = <"Pågående">
+					description = <"Måling pågår">
+				>
+				["at0011"] = <
+					text = <"På vent">
+					description = <"Måling satt på vent">
+				>
+				["at0012"] = <
+					text = <"Detaljer om målepunkt">
+					description = <"Utvidelse for mer spesifikke detaljer om målepunktet">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Trajectory plan">
+					description = <"Defines planned events in a patient trajectory">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Trajectory type">
+					description = <"Type of trajectory for which the events are planned for.">
+				>
+				["at0003"] = <
+					text = <"Measuring points">
+					description = <"Defined measuring points within a patient trajectory">
+				>
+				["at0004"] = <
+					text = <"Event">
+					description = <"Type of event for the measuring point.">
+				>
+				["at0005"] = <
+					text = <"Nexts measuring point">
+					description = <"Date/time for the next planned measuring point.">
+				>
+				["at0006"] = <
+					text = <"Next measurement according to the guideline">
+					description = <"Date/time for the next measurement point according to the guideline.">
+				>
+				["at0007"] = <
+					text = <"Last changed">
+					description = <"Date/time when the plan was last updated. ">
+				>
+				["at0008"] = <
+					text = <"Planned according to guideline">
+					description = <"Indicates whether you plan a time according to the guideline.">
+				>
+				["at0009"] = <
+					text = <"Status">
+					description = <"Indicates whether you have an ongoing measurement or whether it has been put on hold until any re-planning.">
+				>
+				["at0010"] = <
+					text = <"Ongoing">
+					description = <"The measurement point is ongoing.">
+				>
+				["at0011"] = <
+					text = <"On hold">
+					description = <"The measurement point is put on hold for some reason.">
+				>
+				["at0012"] = <
+					text = <"Details about the measuring point">
+					description = <"Extension for more detailed definition of the measurement point.">
+				>
+			>
+		>
+	>

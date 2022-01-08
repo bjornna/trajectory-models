@@ -1,0 +1,104 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-COMPOSITION.trajectory.v1
+
+concept
+	[at0000]	-- Pasientforløp
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Bjørn Næss">
+				["email"] = <"bna@dips.no">
+				["organisation"] = <"DIPS AS">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2015-06-20">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Use to initiate and/or follow up trajectory. ">
+			use = <"Use to initiate and/or follow up trajectory. ">
+			misuse = <"">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å initiere og følge opp et pasientforløp. ">
+			use = <"Benyttes for å initiere og følge opp et pasientforløp. ">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"25B391685C7C9B3EE77206A9B3868110">
+	>
+
+definition
+	COMPOSITION[at0000] matches {	-- Pasientforløp
+		category matches {
+			DV_CODED_TEXT matches {
+				defining_code matches {[openehr::433]}
+			}
+		}
+		context matches {
+			EVENT_CONTEXT matches {
+				other_context matches {
+					ITEM_TREE[at0001] matches {	-- Tre
+						items cardinality matches {0..*; unordered} matches {
+							allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Detaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Trajectory">
+					description = <"Composition to be used when initiating and following up a trajectory">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Details">
+					description = <"*">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pasientforløp">
+					description = <"Benyttes for dokumetner som initierer og følger opp et pasientforløp.">
+				>
+				["at0001"] = <
+					text = <"Tre">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Detaljer">
+					description = <"">
+				>
+			>
+		>
+	>
